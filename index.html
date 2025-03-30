@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pandi</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4ff;
+      color: #333;
+      margin: 0;
+      padding: 2rem;
+      max-width: 600px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      color: #4a6ee0;
+    }
+    input, button {
+      padding: 0.5rem;
+      margin: 0.5rem 0;
+      width: 100%;
+      font-size: 1rem;
+    }
+    button {
+      background-color: #4a6ee0;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .word-list, .generated-sentence {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .word-list ul {
+      padding-left: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Pandi 🐼📚✨</h1>
+  <input id="english" placeholder="Word in English (e.g., horse)" />
+  <input id="spanish" placeholder="Translation in Spanish (e.g., caballo)" />
+  <button onclick="addWord()">Add Word</button>
+
+  <div class="word-list">
+    <h3>📖 Words Learned</h3>
+    <ul id="wordList"></ul>
+  </div>
+
+  <button onclick="generateSentence()">Generate New Sentence</button>
+  <div class="generated-sentence">
+    <h3>🧠 Example Sentence</h3>
+    <p id="sentenceOutput">(Your sentence will appear here)</p>
+  </div>
+
+  <script>
+    let words = [];
+
+    function addWord() {
+      const en = document.getElementById('english').value.trim().toLowerCase();
+      const es = document.getElementById('spanish').value.trim().toLowerCase();
+      if (en && es) {
+        words.push({ en, es });
+        document.getElementById('english').value = '';
+        document.getElementById('spanish').value = '';
+        updateWordList();
+      }
+    }
+
+    function updateWordList() {
+      const ul = document.getElementById('wordList');
+      ul.innerHTML = '';
+      words.forEach(word => {
+        const li = document.createElement('li');
+        li.textContent = `${word.en} - ${word.es}`;
+        ul.appendChild(li);
+      });
+    }
+
+    function generateSentence() {
+      if (words.length < 2) {
+        document.getElementById('sentenceOutput').textContent = 'Add at least two words to create a sentence!';
+        return;
+      }
+
+      const known = words.slice(0, words.length - 1);
+      const newWord = words[words.length - 1];
+      const randomKnown = known[Math.floor(Math.random() * known.length)];
+
+      const connectors = ['is', 'has', 'likes', 'wants'];
+      const connector = connectors[Math.floor(Math.random() * connectors.length)];
+
+      const sentence = `The ${randomKnown.en} ${connector} ${newWord.en}.`;
+      document.getElementById('sentenceOutput').textContent = sentence;
+    }
+  </script>
+</body>
+</html>
