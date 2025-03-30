@@ -46,5 +46,5 @@ La idea original nace de una conversación con mi amiga Pandi 🥰, quien propus
 
 ## 💬 Créditos
 
-Creado con 💖 por [Tu Nombre o Alias]  
+Creado con 💖 por [Aspheros]  
 Idea original: Pandi 🐼✨
